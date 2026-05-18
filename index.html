@@ -47,35 +47,6 @@
       min-height: 100vh;
     }
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::before {
-      width: 120px;
-      height: 120px;
-      background: var(--sun);
-      top: 1rem;
-      right: 5%;
-      box-shadow: 0 0 40px rgba(255, 217, 61, 0.6);
-    }
-
-    body::after {
-      width: 80px;
-      height: 50px;
-      background: rgba(255, 255, 255, 0.85);
-      top: 2.5rem;
-      right: 8%;
-      border-radius: 40px;
-      box-shadow: 60px 8px 0 -5px rgba(255, 255, 255, 0.7),
-                  120px 4px 0 -8px rgba(255, 255, 255, 0.5);
-    }
-
     .container {
       max-width: 860px;
       margin: 0 auto;
