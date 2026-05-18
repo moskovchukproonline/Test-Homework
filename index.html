@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Учимся читать — английский для начинающих</title>
+  <title>РЈС‡РёРјСЃСЏ С‡РёС‚Р°С‚СЊ вЂ” Р°РЅРіР»РёР№СЃРєРёР№ РґР»СЏ РЅР°С‡РёРЅР°СЋС‰РёС…</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -269,185 +269,558 @@
       font-size: 0.85rem;
       color: var(--muted);
     }
+
+    .audio-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding: 0.65rem 0.85rem;
+      background: var(--accent-soft);
+      border-radius: 8px;
+    }
+
+    .audio-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tab-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .audio-panel {
+      display: none;
+    }
+
+    .audio-panel.active {
+      display: block;
+    }
+
+    .word-card {
+      text-align: center;
+      padding: 1.25rem;
+      background: var(--accent-soft);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+    }
+
+    .word-card .big-word {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .word-card .big-ipa {
+      font-family: "Lucida Sans Unicode", "Segoe UI Symbol", sans-serif;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .word-card .big-ru {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .audio-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    button.icon-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    button.icon-btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    button.icon-btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    button.icon-btn.primary:hover {
+      opacity: 0.92;
+    }
+
+    button.icon-btn.recording {
+      background: var(--error);
+      color: #fff;
+      border-color: var(--error);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      50% { opacity: 0.75; }
+    }
+
+    .progress-text {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .quick-listen {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem;
+      padding: 0.45rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .quick-item button {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .quick-item button:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .word-en-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .word-play {
+      width: 1.5rem;
+      height: 1.5rem;
+      padding: 0;
+      border: none;
+      border-radius: 4px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 0.7rem;
+      line-height: 1.5rem;
+      vertical-align: middle;
+    }
+
+    .word-play:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .classify-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    @media (max-width: 520px) {
+      .classify-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .classify-col {
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      min-height: 120px;
+    }
+
+    .classify-col h4 {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .classify-words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .classify-chip {
+      padding: 0.35rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .classify-chip.selected {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .classify-chip.assigned-closed {
+      background: #e3f5ec;
+      border-color: var(--success);
+    }
+
+    .classify-chip.assigned-silent {
+      background: #fff3e0;
+      border-color: #e6a23c;
+    }
+
+    .listen-ex-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .exercise-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Учимся читать для начинающих изучать английский язык</h1>
-      <p>Основные правила чтения букв и сочетаний с транскрипцией и примерами</p>
+      <h1>РЈС‡РёРјСЃСЏ С‡РёС‚Р°С‚СЊ РґР»СЏ РЅР°С‡РёРЅР°СЋС‰РёС… РёР·СѓС‡Р°С‚СЊ Р°РЅРіР»РёР№СЃРєРёР№ СЏР·С‹Рє</h1>
+      <p>РћСЃРЅРѕРІРЅС‹Рµ РїСЂР°РІРёР»Р° С‡С‚РµРЅРёСЏ Р±СѓРєРІ Рё СЃРѕС‡РµС‚Р°РЅРёР№ СЃ С‚СЂР°РЅСЃРєСЂРёРїС†РёРµР№ Рё РїСЂРёРјРµСЂР°РјРё</p>
     </header>
 
     <section aria-labelledby="rules-heading">
-      <h2 id="rules-heading">Правила чтения и транскрипция</h2>
+      <h2 id="rules-heading">РџСЂР°РІРёР»Р° С‡С‚РµРЅРёСЏ Рё С‚СЂР°РЅСЃРєСЂРёРїС†РёСЏ</h2>
 
       <article class="rule">
-        <p class="rule-title">1. Буква A в закрытом слоге</p>
-        <p class="rule-desc">Если после гласной стоит согласная (закрытый слог), <strong>a</strong> читается как <span class="transcription">[æ]</span> — короткий звук, похожий на русское «э».</p>
+        <p class="rule-title">1. Р‘СѓРєРІР° A РІ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ</p>
+        <p class="rule-desc">Р•СЃР»Рё РїРѕСЃР»Рµ РіР»Р°СЃРЅРѕР№ СЃС‚РѕРёС‚ СЃРѕРіР»Р°СЃРЅР°СЏ (Р·Р°РєСЂС‹С‚С‹Р№ СЃР»РѕРі), <strong>a</strong> С‡РёС‚Р°РµС‚СЃСЏ РєР°Рє <span class="transcription">[Г¦]</span> вЂ” РєРѕСЂРѕС‚РєРёР№ Р·РІСѓРє, РїРѕС…РѕР¶РёР№ РЅР° СЂСѓСЃСЃРєРѕРµ В«СЌВ».</p>
         <ul class="words">
-          <li><span class="word-en">cat</span> <span class="word-ipa">[kæt]</span> <span class="word-ru">кот</span></li>
-          <li><span class="word-en">bag</span> <span class="word-ipa">[bæɡ]</span> <span class="word-ru">сумка</span></li>
-          <li><span class="word-en">map</span> <span class="word-ipa">[mæp]</span> <span class="word-ru">карта</span></li>
-          <li><span class="word-en">hat</span> <span class="word-ipa">[hæt]</span> <span class="word-ru">шляпа</span></li>
-          <li><span class="word-en">man</span> <span class="word-ipa">[mæn]</span> <span class="word-ru">мужчина</span></li>
+          <li><span class="word-en">cat</span> <span class="word-ipa">[kГ¦t]</span> <span class="word-ru">РєРѕС‚</span></li>
+          <li><span class="word-en">bag</span> <span class="word-ipa">[bГ¦ЙЎ]</span> <span class="word-ru">СЃСѓРјРєР°</span></li>
+          <li><span class="word-en">map</span> <span class="word-ipa">[mГ¦p]</span> <span class="word-ru">РєР°СЂС‚Р°</span></li>
+          <li><span class="word-en">hat</span> <span class="word-ipa">[hГ¦t]</span> <span class="word-ru">С€Р»СЏРїР°</span></li>
+          <li><span class="word-en">man</span> <span class="word-ipa">[mГ¦n]</span> <span class="word-ru">РјСѓР¶С‡РёРЅР°</span></li>
         </ul>
       </article>
 
       <article class="rule">
-        <p class="rule-title">2. Буква E в закрытом слоге</p>
-        <p class="rule-desc">В закрытом слоге <strong>e</strong> читается как <span class="transcription">[e]</span> — короткий звук «э».</p>
+        <p class="rule-title">2. Р‘СѓРєРІР° E РІ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ</p>
+        <p class="rule-desc">Р’ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ <strong>e</strong> С‡РёС‚Р°РµС‚СЃСЏ РєР°Рє <span class="transcription">[e]</span> вЂ” РєРѕСЂРѕС‚РєРёР№ Р·РІСѓРє В«СЌВ».</p>
         <ul class="words">
-          <li><span class="word-en">bed</span> <span class="word-ipa">[bed]</span> <span class="word-ru">кровать</span></li>
-          <li><span class="word-en">pen</span> <span class="word-ipa">[pen]</span> <span class="word-ru">ручка</span></li>
-          <li><span class="word-en">red</span> <span class="word-ipa">[red]</span> <span class="word-ru">красный</span></li>
-          <li><span class="word-en">ten</span> <span class="word-ipa">[ten]</span> <span class="word-ru">десять</span></li>
-          <li><span class="word-en">leg</span> <span class="word-ipa">[leɡ]</span> <span class="word-ru">нога</span></li>
+          <li><span class="word-en">bed</span> <span class="word-ipa">[bed]</span> <span class="word-ru">РєСЂРѕРІР°С‚СЊ</span></li>
+          <li><span class="word-en">pen</span> <span class="word-ipa">[pen]</span> <span class="word-ru">СЂСѓС‡РєР°</span></li>
+          <li><span class="word-en">red</span> <span class="word-ipa">[red]</span> <span class="word-ru">РєСЂР°СЃРЅС‹Р№</span></li>
+          <li><span class="word-en">ten</span> <span class="word-ipa">[ten]</span> <span class="word-ru">РґРµСЃСЏС‚СЊ</span></li>
+          <li><span class="word-en">leg</span> <span class="word-ipa">[leЙЎ]</span> <span class="word-ru">РЅРѕРіР°</span></li>
         </ul>
       </article>
 
       <article class="rule">
-        <p class="rule-title">3. Буква I в закрытом слоге</p>
-        <p class="rule-desc">В закрытом слоге <strong>i</strong> читается как <span class="transcription">[ɪ]</span> — короткий звук «и».</p>
+        <p class="rule-title">3. Р‘СѓРєРІР° I РІ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ</p>
+        <p class="rule-desc">Р’ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ <strong>i</strong> С‡РёС‚Р°РµС‚СЃСЏ РєР°Рє <span class="transcription">[ЙЄ]</span> вЂ” РєРѕСЂРѕС‚РєРёР№ Р·РІСѓРє В«РёВ».</p>
         <ul class="words">
-          <li><span class="word-en">sit</span> <span class="word-ipa">[sɪt]</span> <span class="word-ru">сидеть</span></li>
-          <li><span class="word-en">big</span> <span class="word-ipa">[bɪɡ]</span> <span class="word-ru">большой</span></li>
-          <li><span class="word-en">pin</span> <span class="word-ipa">[pɪn]</span> <span class="word-ru">булавка</span></li>
-          <li><span class="word-en">fish</span> <span class="word-ipa">[fɪʃ]</span> <span class="word-ru">рыба</span></li>
-          <li><span class="word-en">milk</span> <span class="word-ipa">[mɪlk]</span> <span class="word-ru">молоко</span></li>
+          <li><span class="word-en">sit</span> <span class="word-ipa">[sЙЄt]</span> <span class="word-ru">СЃРёРґРµС‚СЊ</span></li>
+          <li><span class="word-en">big</span> <span class="word-ipa">[bЙЄЙЎ]</span> <span class="word-ru">Р±РѕР»СЊС€РѕР№</span></li>
+          <li><span class="word-en">pin</span> <span class="word-ipa">[pЙЄn]</span> <span class="word-ru">Р±СѓР»Р°РІРєР°</span></li>
+          <li><span class="word-en">fish</span> <span class="word-ipa">[fЙЄКѓ]</span> <span class="word-ru">СЂС‹Р±Р°</span></li>
+          <li><span class="word-en">milk</span> <span class="word-ipa">[mЙЄlk]</span> <span class="word-ru">РјРѕР»РѕРєРѕ</span></li>
         </ul>
       </article>
 
       <article class="rule">
-        <p class="rule-title">4. Буква O в закрытом слоге</p>
-        <p class="rule-desc">В закрытом слоге <strong>o</strong> читается как <span class="transcription">[ɒ]</span> (брит.) / <span class="transcription">[ɑː]</span> (амер.) — звук «о».</p>
+        <p class="rule-title">4. Р‘СѓРєРІР° O РІ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ</p>
+        <p class="rule-desc">Р’ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ <strong>o</strong> С‡РёС‚Р°РµС‚СЃСЏ РєР°Рє <span class="transcription">[Й’]</span> (Р±СЂРёС‚.) / <span class="transcription">[Й‘Лђ]</span> (Р°РјРµСЂ.) вЂ” Р·РІСѓРє В«РѕВ».</p>
         <ul class="words">
-          <li><span class="word-en">hot</span> <span class="word-ipa">[hɒt]</span> <span class="word-ru">горячий</span></li>
-          <li><span class="word-en">dog</span> <span class="word-ipa">[dɒɡ]</span> <span class="word-ru">собака</span></li>
-          <li><span class="word-en">box</span> <span class="word-ipa">[bɒks]</span> <span class="word-ru">коробка</span></li>
-          <li><span class="word-en">pot</span> <span class="word-ipa">[pɒt]</span> <span class="word-ru">горшок</span></li>
-          <li><span class="word-en">stop</span> <span class="word-ipa">[stɒp]</span> <span class="word-ru">остановка</span></li>
+          <li><span class="word-en">hot</span> <span class="word-ipa">[hЙ’t]</span> <span class="word-ru">РіРѕСЂСЏС‡РёР№</span></li>
+          <li><span class="word-en">dog</span> <span class="word-ipa">[dЙ’ЙЎ]</span> <span class="word-ru">СЃРѕР±Р°РєР°</span></li>
+          <li><span class="word-en">box</span> <span class="word-ipa">[bЙ’ks]</span> <span class="word-ru">РєРѕСЂРѕР±РєР°</span></li>
+          <li><span class="word-en">pot</span> <span class="word-ipa">[pЙ’t]</span> <span class="word-ru">РіРѕСЂС€РѕРє</span></li>
+          <li><span class="word-en">stop</span> <span class="word-ipa">[stЙ’p]</span> <span class="word-ru">РѕСЃС‚Р°РЅРѕРІРєР°</span></li>
         </ul>
       </article>
 
       <article class="rule">
-        <p class="rule-title">5. Буква U в закрытом слоге</p>
-        <p class="rule-desc">В закрытом слоге <strong>u</strong> читается как <span class="transcription">[ʌ]</span> — короткий звук «а».</p>
+        <p class="rule-title">5. Р‘СѓРєРІР° U РІ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ</p>
+        <p class="rule-desc">Р’ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ <strong>u</strong> С‡РёС‚Р°РµС‚СЃСЏ РєР°Рє <span class="transcription">[КЊ]</span> вЂ” РєРѕСЂРѕС‚РєРёР№ Р·РІСѓРє В«Р°В».</p>
         <ul class="words">
-          <li><span class="word-en">cup</span> <span class="word-ipa">[kʌp]</span> <span class="word-ru">чашка</span></li>
-          <li><span class="word-en">sun</span> <span class="word-ipa">[sʌn]</span> <span class="word-ru">солнце</span></li>
-          <li><span class="word-en">bus</span> <span class="word-ipa">[bʌs]</span> <span class="word-ru">автобус</span></li>
-          <li><span class="word-en">run</span> <span class="word-ipa">[rʌn]</span> <span class="word-ru">бежать</span></li>
-          <li><span class="word-en">duck</span> <span class="word-ipa">[dʌk]</span> <span class="word-ru">утка</span></li>
+          <li><span class="word-en">cup</span> <span class="word-ipa">[kКЊp]</span> <span class="word-ru">С‡Р°С€РєР°</span></li>
+          <li><span class="word-en">sun</span> <span class="word-ipa">[sКЊn]</span> <span class="word-ru">СЃРѕР»РЅС†Рµ</span></li>
+          <li><span class="word-en">bus</span> <span class="word-ipa">[bКЊs]</span> <span class="word-ru">Р°РІС‚РѕР±СѓСЃ</span></li>
+          <li><span class="word-en">run</span> <span class="word-ipa">[rКЊn]</span> <span class="word-ru">Р±РµР¶Р°С‚СЊ</span></li>
+          <li><span class="word-en">duck</span> <span class="word-ipa">[dКЊk]</span> <span class="word-ru">СѓС‚РєР°</span></li>
         </ul>
       </article>
 
       <article class="rule">
-        <p class="rule-title">6. «Молчаливый» E в конце слова</p>
-        <p class="rule-desc">Если слово заканчивается на <strong>-e</strong>, буква не читается, но делает предыдущую гласную долгой: <span class="transcription">[eɪ], [iː], [aɪ], [əʊ], [juː]</span>.</p>
+        <p class="rule-title">6. В«РњРѕР»С‡Р°Р»РёРІС‹Р№В» E РІ РєРѕРЅС†Рµ СЃР»РѕРІР°</p>
+        <p class="rule-desc">Р•СЃР»Рё СЃР»РѕРІРѕ Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ РЅР° <strong>-e</strong>, Р±СѓРєРІР° РЅРµ С‡РёС‚Р°РµС‚СЃСЏ, РЅРѕ РґРµР»Р°РµС‚ РїСЂРµРґС‹РґСѓС‰СѓСЋ РіР»Р°СЃРЅСѓСЋ РґРѕР»РіРѕР№: <span class="transcription">[eЙЄ], [iЛђ], [aЙЄ], [Й™КЉ], [juЛђ]</span>.</p>
         <ul class="words">
-          <li><span class="word-en">cake</span> <span class="word-ipa">[keɪk]</span> <span class="word-ru">торт</span></li>
-          <li><span class="word-en">bike</span> <span class="word-ipa">[baɪk]</span> <span class="word-ru">велосипед</span></li>
-          <li><span class="word-en">home</span> <span class="word-ipa">[həʊm]</span> <span class="word-ru">дом</span></li>
-          <li><span class="word-en">note</span> <span class="word-ipa">[nəʊt]</span> <span class="word-ru">записка</span></li>
-          <li><span class="word-en">use</span> <span class="word-ipa">[juːz]</span> <span class="word-ru">использовать</span></li>
+          <li><span class="word-en">cake</span> <span class="word-ipa">[keЙЄk]</span> <span class="word-ru">С‚РѕСЂС‚</span></li>
+          <li><span class="word-en">bike</span> <span class="word-ipa">[baЙЄk]</span> <span class="word-ru">РІРµР»РѕСЃРёРїРµРґ</span></li>
+          <li><span class="word-en">home</span> <span class="word-ipa">[hЙ™КЉm]</span> <span class="word-ru">РґРѕРј</span></li>
+          <li><span class="word-en">note</span> <span class="word-ipa">[nЙ™КЉt]</span> <span class="word-ru">Р·Р°РїРёСЃРєР°</span></li>
+          <li><span class="word-en">use</span> <span class="word-ipa">[juЛђz]</span> <span class="word-ru">РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ</span></li>
         </ul>
       </article>
 
       <article class="rule">
-        <p class="rule-title">7. Сочетание TH</p>
-        <p class="rule-desc"><strong>th</strong> в начале слова обычно <span class="transcription">[ð]</span> (звонкое), в конце — <span class="transcription">[θ]</span> (глухое).</p>
+        <p class="rule-title">7. РЎРѕС‡РµС‚Р°РЅРёРµ TH</p>
+        <p class="rule-desc"><strong>th</strong> РІ РЅР°С‡Р°Р»Рµ СЃР»РѕРІР° РѕР±С‹С‡РЅРѕ <span class="transcription">[Г°]</span> (Р·РІРѕРЅРєРѕРµ), РІ РєРѕРЅС†Рµ вЂ” <span class="transcription">[Оё]</span> (РіР»СѓС…РѕРµ).</p>
         <ul class="words">
-          <li><span class="word-en">this</span> <span class="word-ipa">[ðɪs]</span> <span class="word-ru">этот</span></li>
-          <li><span class="word-en">that</span> <span class="word-ipa">[ðæt]</span> <span class="word-ru">тот</span></li>
-          <li><span class="word-en">think</span> <span class="word-ipa">[θɪŋk]</span> <span class="word-ru">думать</span></li>
-          <li><span class="word-en">three</span> <span class="word-ipa">[θriː]</span> <span class="word-ru">три</span></li>
-          <li><span class="word-en">mouth</span> <span class="word-ipa">[maʊθ]</span> <span class="word-ru">рот</span></li>
+          <li><span class="word-en">this</span> <span class="word-ipa">[Г°ЙЄs]</span> <span class="word-ru">СЌС‚РѕС‚</span></li>
+          <li><span class="word-en">that</span> <span class="word-ipa">[Г°Г¦t]</span> <span class="word-ru">С‚РѕС‚</span></li>
+          <li><span class="word-en">think</span> <span class="word-ipa">[ОёЙЄЕ‹k]</span> <span class="word-ru">РґСѓРјР°С‚СЊ</span></li>
+          <li><span class="word-en">three</span> <span class="word-ipa">[ОёriЛђ]</span> <span class="word-ru">С‚СЂРё</span></li>
+          <li><span class="word-en">mouth</span> <span class="word-ipa">[maКЉОё]</span> <span class="word-ru">СЂРѕС‚</span></li>
         </ul>
       </article>
 
       <article class="rule">
-        <p class="rule-title">8. Сочетания SH и CH</p>
-        <p class="rule-desc"><strong>sh</strong> = <span class="transcription">[ʃ]</span> («ш»), <strong>ch</strong> = <span class="transcription">[tʃ]</span> («ч»).</p>
+        <p class="rule-title">8. РЎРѕС‡РµС‚Р°РЅРёСЏ SH Рё CH</p>
+        <p class="rule-desc"><strong>sh</strong> = <span class="transcription">[Кѓ]</span> (В«С€В»), <strong>ch</strong> = <span class="transcription">[tКѓ]</span> (В«С‡В»).</p>
         <ul class="words">
-          <li><span class="word-en">ship</span> <span class="word-ipa">[ʃɪp]</span> <span class="word-ru">корабль</span></li>
-          <li><span class="word-en">shop</span> <span class="word-ipa">[ʃɒp]</span> <span class="word-ru">магазин</span></li>
-          <li><span class="word-en">chair</span> <span class="word-ipa">[tʃeə]</span> <span class="word-ru">стул</span></li>
-          <li><span class="word-en">child</span> <span class="word-ipa">[tʃaɪld]</span> <span class="word-ru">ребёнок</span></li>
-          <li><span class="word-en">lunch</span> <span class="word-ipa">[lʌntʃ]</span> <span class="word-ru">обед</span></li>
+          <li><span class="word-en">ship</span> <span class="word-ipa">[КѓЙЄp]</span> <span class="word-ru">РєРѕСЂР°Р±Р»СЊ</span></li>
+          <li><span class="word-en">shop</span> <span class="word-ipa">[КѓЙ’p]</span> <span class="word-ru">РјР°РіР°Р·РёРЅ</span></li>
+          <li><span class="word-en">chair</span> <span class="word-ipa">[tКѓeЙ™]</span> <span class="word-ru">СЃС‚СѓР»</span></li>
+          <li><span class="word-en">child</span> <span class="word-ipa">[tКѓaЙЄld]</span> <span class="word-ru">СЂРµР±С‘РЅРѕРє</span></li>
+          <li><span class="word-en">lunch</span> <span class="word-ipa">[lКЊntКѓ]</span> <span class="word-ru">РѕР±РµРґ</span></li>
         </ul>
       </article>
     </section>
 
+    <section aria-labelledby="audio-heading">
+      <h2 id="audio-heading">РђСѓРґРёРѕ-С‚СЂРµРЅРёСЂРѕРІРєР° РїСЂРѕРёР·РЅРѕС€РµРЅРёСЏ</h2>
+      <p class="audio-note">РќР°Р¶РјРёС‚Рµ рџ”Љ, С‡С‚РѕР±С‹ СѓСЃР»С‹С€Р°С‚СЊ СЃР»РѕРІРѕ. Р’ СЂРµР¶РёРјРµ В«РџСЂРѕРІРµСЂСЊ РїСЂРѕРёР·РЅРѕС€РµРЅРёРµВ» СЂР°Р·СЂРµС€РёС‚Рµ РґРѕСЃС‚СѓРї Рє РјРёРєСЂРѕС„РѕРЅСѓ (Р»СѓС‡С€Рµ РІСЃРµРіРѕ СЂР°Р±РѕС‚Р°РµС‚ РІ Chrome РёР»Рё Edge).</p>
+
+      <div class="audio-tabs" role="tablist">
+        <button type="button" class="tab-btn active" data-tab="listen-repeat" role="tab" aria-selected="true">РЎР»СѓС€Р°Р№ Рё РїРѕРІС‚РѕСЂСЏР№</button>
+        <button type="button" class="tab-btn" data-tab="pronounce-check" role="tab" aria-selected="false">РџСЂРѕРІРµСЂСЊ РїСЂРѕРёР·РЅРѕС€РµРЅРёРµ</button>
+        <button type="button" class="tab-btn" data-tab="quick-listen" role="tab" aria-selected="false">Р‘С‹СЃС‚СЂРѕРµ РїСЂРѕСЃР»СѓС€РёРІР°РЅРёРµ</button>
+      </div>
+
+      <div class="audio-panel active" id="panel-listen-repeat" role="tabpanel">
+        <p class="progress-text" id="lr-progress">РЎР»РѕРІРѕ 1 РёР· 10</p>
+        <div class="word-card">
+          <p class="big-word" id="lr-word">cat</p>
+          <p class="big-ipa" id="lr-ipa">[kГ¦t]</p>
+          <p class="big-ru" id="lr-ru">РєРѕС‚</p>
+        </div>
+        <div class="audio-controls">
+          <button type="button" class="icon-btn primary" id="lr-play">рџ”Љ РџРѕСЃР»СѓС€Р°С‚СЊ</button>
+          <button type="button" class="icon-btn" id="lr-prev">в†ђ РќР°Р·Р°Рґ</button>
+          <button type="button" class="icon-btn" id="lr-next">Р”Р°Р»РµРµ в†’</button>
+        </div>
+        <p class="hint">РџСЂРѕСЃР»СѓС€Р°Р№С‚Рµ СЃР»РѕРІРѕ РІСЃР»СѓС…, Р·Р°С‚РµРј РїРѕРІС‚РѕСЂРёС‚Рµ Р·Р° РґРёРєС‚РѕСЂРѕРј. РџРµСЂРµС…РѕРґРёС‚Рµ Рє СЃР»РµРґСѓСЋС‰РµРјСѓ СЃР»РѕРІСѓ, РєРѕРіРґР° Р±СѓРґРµС‚Рµ РіРѕС‚РѕРІС‹.</p>
+      </div>
+
+      <div class="audio-panel" id="panel-pronounce-check" role="tabpanel">
+        <p class="progress-text" id="pc-progress">РЎР»РѕРІРѕ 1 РёР· 8</p>
+        <div class="word-card">
+          <p class="big-word" id="pc-word">sit</p>
+          <p class="big-ipa" id="pc-ipa">[sЙЄt]</p>
+          <p class="big-ru" id="pc-ru">СЃРёРґРµС‚СЊ</p>
+        </div>
+        <div class="audio-controls">
+          <button type="button" class="icon-btn primary" id="pc-play">рџ”Љ РћР±СЂР°Р·РµС†</button>
+          <button type="button" class="icon-btn" id="pc-mic">рџЋ¤ РЎРєР°Р·Р°С‚СЊ СЃР»РѕРІРѕ</button>
+          <button type="button" class="icon-btn" id="pc-skip">Р”СЂСѓРіРѕРµ СЃР»РѕРІРѕ</button>
+        </div>
+        <p class="feedback" id="pc-feedback">РќР°Р¶РјРёС‚Рµ В«РћР±СЂР°Р·РµС†В», Р·Р°С‚РµРј В«РЎРєР°Р·Р°С‚СЊ СЃР»РѕРІРѕВ» Рё РїСЂРѕРёР·РЅРµСЃРёС‚Рµ СЃР»РѕРІРѕ РїРѕ-Р°РЅРіР»РёР№СЃРєРё.</p>
+      </div>
+
+      <div class="audio-panel" id="panel-quick-listen" role="tabpanel">
+        <p class="hint" style="margin-bottom: 0.75rem;">РќР°Р¶РјРёС‚Рµ рџ”Љ Сѓ Р»СЋР±РѕРіРѕ СЃР»РѕРІР° РёР· СЃРїРёСЃРєР°.</p>
+        <div class="quick-listen" id="quick-listen-grid"></div>
+      </div>
+    </section>
+
     <section aria-labelledby="exercises-heading">
-      <h2 id="exercises-heading">Упражнения для отработки</h2>
+      <h2 id="exercises-heading">РЈРїСЂР°Р¶РЅРµРЅРёСЏ РґР»СЏ РѕС‚СЂР°Р±РѕС‚РєРё</h2>
 
       <div class="exercise" id="ex1">
-        <h3>Упражнение 1. Выберите правильную транскрипцию</h3>
-        <p class="hint">Как читается слово <strong>pen</strong> в закрытом слоге?</p>
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 1. Р’С‹Р±РµСЂРёС‚Рµ РїСЂР°РІРёР»СЊРЅСѓСЋ С‚СЂР°РЅСЃРєСЂРёРїС†РёСЋ</h3>
+        <p class="hint">РљР°Рє С‡РёС‚Р°РµС‚СЃСЏ СЃР»РѕРІРѕ <strong>pen</strong> РІ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ?</p>
         <div class="options">
-          <label class="option"><input type="radio" name="q1" value="a"> [pæn]</label>
+          <label class="option"><input type="radio" name="q1" value="a"> [pГ¦n]</label>
           <label class="option"><input type="radio" name="q1" value="b"> [pen]</label>
-          <label class="option"><input type="radio" name="q1" value="c"> [piːn]</label>
+          <label class="option"><input type="radio" name="q1" value="c"> [piЛђn]</label>
         </div>
-        <button type="button" class="check-btn" data-ex="1">Проверить</button>
+        <button type="button" class="check-btn" data-ex="1">РџСЂРѕРІРµСЂРёС‚СЊ</button>
         <p class="feedback" id="fb1"></p>
       </div>
 
       <div class="exercise" id="ex2">
-        <h3>Упражнение 2. Вставьте пропущенную букву</h3>
-        <p class="hint">Допишите букву, чтобы слово читалось с долгим звуком «и» (правило молчаливого e).</p>
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 2. Р’СЃС‚Р°РІСЊС‚Рµ РїСЂРѕРїСѓС‰РµРЅРЅСѓСЋ Р±СѓРєРІСѓ</h3>
+        <p class="hint">Р”РѕРїРёС€РёС‚Рµ Р±СѓРєРІСѓ, С‡С‚РѕР±С‹ СЃР»РѕРІРѕ С‡РёС‚Р°Р»РѕСЃСЊ СЃ РґРѕР»РіРёРј Р·РІСѓРєРѕРј В«РёВ» (РїСЂР°РІРёР»Рѕ РјРѕР»С‡Р°Р»РёРІРѕРіРѕ e).</p>
         <div class="fill-blank">
-          b<span><input type="text" id="blank1" maxlength="1" autocomplete="off"></span>k → bike [baɪk]
+          b<span><input type="text" id="blank1" maxlength="1" autocomplete="off"></span>k в†’ bike [baЙЄk]
         </div>
         <div class="fill-blank">
-          cak<span><input type="text" id="blank2" maxlength="1" autocomplete="off"></span> → cake [keɪk]
+          cak<span><input type="text" id="blank2" maxlength="1" autocomplete="off"></span> в†’ cake [keЙЄk]
         </div>
-        <button type="button" class="check-btn" data-ex="2">Проверить</button>
+        <button type="button" class="check-btn" data-ex="2">РџСЂРѕРІРµСЂРёС‚СЊ</button>
         <p class="feedback" id="fb2"></p>
       </div>
 
       <div class="exercise" id="ex3">
-        <h3>Упражнение 3. Соотнесите слово и звук</h3>
-        <p class="hint">Выберите, какое сочетание букв даёт звук в слове.</p>
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 3. РЎРѕРѕС‚РЅРµСЃРёС‚Рµ СЃР»РѕРІРѕ Рё Р·РІСѓРє</h3>
+        <p class="hint">Р’С‹Р±РµСЂРёС‚Рµ, РєР°РєРѕРµ СЃРѕС‡РµС‚Р°РЅРёРµ Р±СѓРєРІ РґР°С‘С‚ Р·РІСѓРє РІ СЃР»РѕРІРµ.</p>
         <div class="match-grid">
           <div class="match-col">
-            <h4>Слово</h4>
+            <h4>РЎР»РѕРІРѕ</h4>
             <p><strong>ship</strong></p>
             <select class="match-select" id="m1" aria-label="ship">
-              <option value="">— выберите —</option>
-              <option value="sh">sh [ʃ]</option>
-              <option value="ch">ch [tʃ]</option>
-              <option value="th">th [θ]</option>
+              <option value="">вЂ” РІС‹Р±РµСЂРёС‚Рµ вЂ”</option>
+              <option value="sh">sh [Кѓ]</option>
+              <option value="ch">ch [tКѓ]</option>
+              <option value="th">th [Оё]</option>
             </select>
             <p><strong>child</strong></p>
             <select class="match-select" id="m2" aria-label="child">
-              <option value="">— выберите —</option>
-              <option value="sh">sh [ʃ]</option>
-              <option value="ch">ch [tʃ]</option>
-              <option value="th">th [θ]</option>
+              <option value="">вЂ” РІС‹Р±РµСЂРёС‚Рµ вЂ”</option>
+              <option value="sh">sh [Кѓ]</option>
+              <option value="ch">ch [tКѓ]</option>
+              <option value="th">th [Оё]</option>
             </select>
             <p><strong>think</strong></p>
             <select class="match-select" id="m3" aria-label="think">
-              <option value="">— выберите —</option>
-              <option value="sh">sh [ʃ]</option>
-              <option value="ch">ch [tʃ]</option>
-              <option value="th">th [θ]</option>
+              <option value="">вЂ” РІС‹Р±РµСЂРёС‚Рµ вЂ”</option>
+              <option value="sh">sh [Кѓ]</option>
+              <option value="ch">ch [tКѓ]</option>
+              <option value="th">th [Оё]</option>
             </select>
           </div>
           <div class="match-col">
-            <h4>Подсказка</h4>
-            <p>ship — корабль</p>
-            <p>child — ребёнок</p>
-            <p>think — думать</p>
+            <h4>РџРѕРґСЃРєР°Р·РєР°</h4>
+            <p>ship вЂ” РєРѕСЂР°Р±Р»СЊ</p>
+            <p>child вЂ” СЂРµР±С‘РЅРѕРє</p>
+            <p>think вЂ” РґСѓРјР°С‚СЊ</p>
           </div>
         </div>
-        <button type="button" class="check-btn" data-ex="3">Проверить</button>
+        <button type="button" class="check-btn" data-ex="3">РџСЂРѕРІРµСЂРёС‚СЊ</button>
         <p class="feedback" id="fb3"></p>
+      </div>
+
+      <hr class="exercise-divider">
+
+      <div class="exercise" id="ex4">
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 4. РљР°РєРѕР№ Р·РІСѓРє РґР°С‘С‚ Р±СѓРєРІР° A?</h3>
+        <p class="hint">Р’ РєР°РєРѕРј СЃР»РѕРІРµ <strong>a</strong> С‡РёС‚Р°РµС‚СЃСЏ РєР°Рє [Г¦] (Р·Р°РєСЂС‹С‚С‹Р№ СЃР»РѕРі)?</p>
+        <div class="options">
+          <label class="option"><input type="radio" name="q4" value="cake"> cake</label>
+          <label class="option"><input type="radio" name="q4" value="cat"> cat</label>
+          <label class="option"><input type="radio" name="q4" value="home"> home</label>
+          <label class="option"><input type="radio" name="q4" value="bike"> bike</label>
+        </div>
+        <button type="button" class="check-btn" data-ex="4">РџСЂРѕРІРµСЂРёС‚СЊ</button>
+        <p class="feedback" id="fb4"></p>
+      </div>
+
+      <div class="exercise" id="ex5">
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 5. РЈСЃР»С‹С€СЊ Рё РІС‹Р±РµСЂРё СЃР»РѕРІРѕ</h3>
+        <p class="hint">РќР°Р¶РјРёС‚Рµ В«Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚РёВ», Р·Р°С‚РµРј РѕС‚РјРµС‚СЊС‚Рµ СѓСЃР»С‹С€Р°РЅРЅРѕРµ СЃР»РѕРІРѕ.</p>
+        <div class="listen-ex-btns">
+          <button type="button" class="icon-btn primary" id="ex5-play">рџ”Љ Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё</button>
+          <button type="button" class="icon-btn" id="ex5-replay">РџРѕРІС‚РѕСЂРёС‚СЊ</button>
+        </div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q5" value="duck"> duck</label>
+          <label class="option"><input type="radio" name="q5" value="dog"> dog</label>
+          <label class="option"><input type="radio" name="q5" value="desk"> desk</label>
+          <label class="option"><input type="radio" name="q5" value="fish"> fish</label>
+        </div>
+        <button type="button" class="check-btn" data-ex="5">РџСЂРѕРІРµСЂРёС‚СЊ</button>
+        <p class="feedback" id="fb5"></p>
+      </div>
+
+      <div class="exercise" id="ex6">
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 6. Р Р°СЃРїСЂРµРґРµР»РёС‚Рµ СЃР»РѕРІР° РїРѕ РїСЂР°РІРёР»Р°Рј</h3>
+        <p class="hint">РќР°Р¶РјРёС‚Рµ СЃР»РѕРІРѕ, Р·Р°С‚РµРј СЃС‚РѕР»Р±РµС† В«Р—Р°РєСЂС‹С‚С‹Р№ СЃР»РѕРіВ» РёР»Рё В«РњРѕР»С‡Р°Р»РёРІР°СЏ eВ». Р§С‚РѕР±С‹ РІРµСЂРЅСѓС‚СЊ СЃР»РѕРІРѕ, РЅР°Р¶РјРёС‚Рµ РµРіРѕ РµС‰С‘ СЂР°Р·.</p>
+        <div class="classify-grid">
+          <div class="classify-col" data-bucket="closed">
+            <h4>Р—Р°РєСЂС‹С‚С‹Р№ СЃР»РѕРі</h4>
+            <div class="classify-words" id="bucket-closed"></div>
+          </div>
+          <div class="classify-col" data-bucket="silent">
+            <h4>РњРѕР»С‡Р°Р»РёРІР°СЏ e</h4>
+            <div class="classify-words" id="bucket-silent"></div>
+          </div>
+        </div>
+        <p class="hint" style="margin: 0.5rem 0;">РЎР»РѕРІР° РґР»СЏ СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ:</p>
+        <div class="classify-words" id="classify-pool"></div>
+        <button type="button" class="check-btn" data-ex="6">РџСЂРѕРІРµСЂРёС‚СЊ</button>
+        <p class="feedback" id="fb6"></p>
+      </div>
+
+      <div class="exercise" id="ex7">
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 7. Р’С‹Р±РµСЂРёС‚Рµ РїСЂР°РІРёР»СЊРЅСѓСЋ С‚СЂР°РЅСЃРєСЂРёРїС†РёСЋ</h3>
+        <p class="hint">РљР°Рє С‡РёС‚Р°РµС‚СЃСЏ СЃР»РѕРІРѕ <strong>sun</strong>?</p>
+        <div class="options">
+          <label class="option"><input type="radio" name="q7" value="a"> [suЛђn]</label>
+          <label class="option"><input type="radio" name="q7" value="b"> [sКЊn]</label>
+          <label class="option"><input type="radio" name="q7" value="c"> [sЙ’n]</label>
+        </div>
+        <button type="button" class="check-btn" data-ex="7">РџСЂРѕРІРµСЂРёС‚СЊ</button>
+        <p class="feedback" id="fb7"></p>
+      </div>
+
+      <div class="exercise" id="ex8">
+        <h3>РЈРїСЂР°Р¶РЅРµРЅРёРµ 8. РќР°Р№РґРёС‚Рµ Р»РёС€РЅРµРµ СЃР»РѕРІРѕ</h3>
+        <p class="hint">РћРґРЅРѕ СЃР»РѕРІРѕ С‡РёС‚Р°РµС‚СЃСЏ РїРѕ РїСЂР°РІРёР»Сѓ РјРѕР»С‡Р°Р»РёРІРѕР№ e. РљР°РєРѕРµ?</p>
+        <div class="options">
+          <label class="option"><input type="radio" name="q8" value="pen"> pen</label>
+          <label class="option"><input type="radio" name="q8" value="red"> red</label>
+          <label class="option"><input type="radio" name="q8" value="note"> note</label>
+          <label class="option"><input type="radio" name="q8" value="leg"> leg</label>
+        </div>
+        <button type="button" class="check-btn" data-ex="8">РџСЂРѕРІРµСЂРёС‚СЊ</button>
+        <p class="feedback" id="fb8"></p>
       </div>
     </section>
 
     <footer>
-      Откройте файл <strong>index.html</strong> в браузере, чтобы заниматься офлайн.
+      РћС‚РєСЂРѕР№С‚Рµ С„Р°Р№Р» <strong>index.html</strong> РІ Р±СЂР°СѓР·РµСЂРµ, С‡С‚РѕР±С‹ Р·Р°РЅРёРјР°С‚СЊСЃСЏ РѕС„Р»Р°Р№РЅ.
     </footer>
   </div>
 
@@ -465,15 +838,15 @@
       var fb = document.getElementById("fb1");
       var chosen = document.querySelector('input[name="q1"]:checked');
       if (!chosen) {
-        fb.textContent = "Выберите один вариант ответа.";
+        fb.textContent = "Р’С‹Р±РµСЂРёС‚Рµ РѕРґРёРЅ РІР°СЂРёР°РЅС‚ РѕС‚РІРµС‚Р°.";
         fb.className = "feedback bad";
         return;
       }
       if (chosen.value === "b") {
-        fb.textContent = "Верно! В закрытом слоге e читается как [e]: pen [pen].";
+        fb.textContent = "Р’РµСЂРЅРѕ! Р’ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ e С‡РёС‚Р°РµС‚СЃСЏ РєР°Рє [e]: pen [pen].";
         fb.className = "feedback ok";
       } else {
-        fb.textContent = "Неверно. Вспомните правило: e в закрытом слоге — [e].";
+        fb.textContent = "РќРµРІРµСЂРЅРѕ. Р’СЃРїРѕРјРЅРёС‚Рµ РїСЂР°РІРёР»Рѕ: e РІ Р·Р°РєСЂС‹С‚РѕРј СЃР»РѕРіРµ вЂ” [e].";
         fb.className = "feedback bad";
       }
     }
@@ -483,10 +856,10 @@
       var a = document.getElementById("blank1").value.trim().toLowerCase();
       var b = document.getElementById("blank2").value.trim().toLowerCase();
       if (a === "i" && b === "e") {
-        fb.textContent = "Отлично! bike и cake — слова с «молчаливой» e в конце.";
+        fb.textContent = "РћС‚Р»РёС‡РЅРѕ! bike Рё cake вЂ” СЃР»РѕРІР° СЃ В«РјРѕР»С‡Р°Р»РёРІРѕР№В» e РІ РєРѕРЅС†Рµ.";
         fb.className = "feedback ok";
       } else {
-        fb.textContent = "Проверьте: bik + i + e = bike; cak + e = cake.";
+        fb.textContent = "РџСЂРѕРІРµСЂСЊС‚Рµ: bik + i + e = bike; cak + e = cake.";
         fb.className = "feedback bad";
       }
     }
@@ -497,18 +870,19 @@
       var m2 = document.getElementById("m2").value;
       var m3 = document.getElementById("m3").value;
       if (!m1 || !m2 || !m3) {
-        fb.textContent = "Выберите ответ для каждого слова.";
+        fb.textContent = "Р’С‹Р±РµСЂРёС‚Рµ РѕС‚РІРµС‚ РґР»СЏ РєР°Р¶РґРѕРіРѕ СЃР»РѕРІР°.";
         fb.className = "feedback bad";
         return;
       }
       if (m1 === "sh" && m2 === "ch" && m3 === "th") {
-        fb.textContent = "Всё верно! sh — [ʃ], ch — [tʃ], th — [θ].";
+        fb.textContent = "Р’СЃС‘ РІРµСЂРЅРѕ! sh вЂ” [Кѓ], ch вЂ” [tКѓ], th вЂ” [Оё].";
         fb.className = "feedback ok";
       } else {
-        fb.textContent = "Есть ошибки: ship → sh, child → ch, think → th.";
+        fb.textContent = "Р•СЃС‚СЊ РѕС€РёР±РєРё: ship в†’ sh, child в†’ ch, think в†’ th.";
         fb.className = "feedback bad";
       }
     }
   </script>
 </body>
 </html>
+
